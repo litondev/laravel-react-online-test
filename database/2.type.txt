@@ -1,0 +1,8 @@
+name 
+ => 50 string
+
+start_at
+ => timestamp
+
+end_at
+ => timestamp

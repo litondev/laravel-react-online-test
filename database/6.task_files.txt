@@ -1,0 +1,8 @@
+task_id
+ => int
+
+file
+ => text
+
+type
+ => mp3,mp4,png => enum

@@ -1,0 +1,8 @@
+task_id
+ => int
+
+text
+ => text
+
+is_right
+ => boolean

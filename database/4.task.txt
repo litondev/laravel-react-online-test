@@ -1,0 +1,8 @@
+test_id
+ => int
+
+packet
+ => A,B,C,D and E enum
+
+text
+ => text

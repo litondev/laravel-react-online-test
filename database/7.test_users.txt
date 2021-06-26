@@ -1,0 +1,14 @@
+test_id
+ => int
+
+user_id
+ => int
+
+score
+ => int
+
+right_answer
+ => int
+ 
+wrong_answer 
+ => int

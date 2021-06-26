@@ -1,0 +1,14 @@
+name
+ => 50 string
+
+number
+ => 10 int
+
+password
+ => 255 string
+
+photo
+ => 50 string
+
+role
+ => user and admin enum
