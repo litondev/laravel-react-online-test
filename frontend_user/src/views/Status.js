@@ -10,7 +10,7 @@ export default class Status extends React.Component{
 
 	render(){
 		return (
-			<DefaultLayout {...this.props}>
+			<DefaultLayout { ...this.props }>
 				Status
 			</DefaultLayout>
 		)

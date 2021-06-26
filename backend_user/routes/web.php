@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return "hi web";
-});
+// Route::get('/', function () {
+//     return "hi web";
+// });

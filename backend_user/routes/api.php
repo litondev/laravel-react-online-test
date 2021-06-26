@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get("/",function(){
-	return "hi api";
-});
+// Route::get("/",function(){
+// 	return "hi api";
+// });
 
 Route::group(["prefix" => "v1","namespace" => "Api\V1","middleware" => "api"],function(){
 	Route::post("/signup","AuthController@signup")->name('signup');
@@ -26,9 +26,9 @@ Route::group(["prefix" => "v1","namespace" => "Api\V1","middleware" => "api"],fu
 		Route::post("/refresh","AuthController@refresh")->name("refresh");
 	});
 
-	Route::group(["middleware" => "jwt"],function(){		
+	Route::group(["middleware" => "jwt"],function(){
+		Route::post("/logout","AuthController@logout")->name("logout");		
 		Route::get("/home","HomeController@index")->name("home");
-		Route::post("/logout","AuthController@logout")->name("logout");
 		Route::get("/me","AuthController@me")->name("me");
 	});
 });

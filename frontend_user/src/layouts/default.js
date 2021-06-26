@@ -1,5 +1,5 @@
 import React from "react";
-import {Redirect,Link} from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
 export default class Home extends React.Component{
 	constructor(props){
@@ -40,15 +40,15 @@ export default class Home extends React.Component{
       		this.props.history.push('/signin')   
 		})
 		.catch(err => {
+			this.setState({
+				isLoadingLogout : false
+			})
+
 		 	if(err.response && err.response.status === 500){
 		       	window.$toastr('error',err.response.data.message);
 		    }else{
 		        window.$toastr('error','Terjadi Kesalahan');
 		   	}
-
-		   	this.setState({
-				isLoadingLogout : false
-			})
 		});	
 	}
 
@@ -105,9 +105,12 @@ export default class Home extends React.Component{
 
 			  {this.state.showSidebar && 
 			  	<>
-			  	<div className="row ml-0 mr-0" style={sidebarStyle}>			  	
-				  	<div className="d-none d-lg-block col-lg-8 col-12 h-100" style={sideMenuSidebarStyle}></div>
-			  		<div className="col-lg-4 col-12 h-100 pl-4 pr-4 pt-3" style={menuSidebarStyle}>
+			  	<div className="row ml-0 mr-0" 
+			  		style={ sidebarStyle }>			  	
+				  	<div className="d-none d-lg-block col-lg-8 col-12 h-100" 
+				  		style={ sideMenuSidebarStyle }></div>
+			  		<div className="col-lg-4 col-12 h-100 pl-4 pr-4 pt-3" 
+			  			style={ menuSidebarStyle }>
 		  				<div className="clearfix">
 		  					<div className="float-left">
 		  						Menu
@@ -140,7 +143,7 @@ export default class Home extends React.Component{
 		  						<a href="#" className="text-dark"
 		  							onClick={() => this.onLogout()}>
 		  							<i className="fas fa-power-off"></i> Keluar
-		  							{this.state.isLoadingLogout && ' . . . '}
+		  							{ this.state.isLoadingLogout && ' . . . ' }
 		  						</a>		  			
 		  					</li>
 		  				</ul>
@@ -150,7 +153,7 @@ export default class Home extends React.Component{
 		  	  }
 
 		  	  <div className="container-fluid pl-2 pr-2">
-			 	{this.props.children}
+			 	{ this.props.children }
 			  </div>
 			</>
 		)

@@ -1,5 +1,5 @@
 import React from "react";
-import {Redirect} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 export default class Signin extends React.Component{
   constructor(props){
@@ -52,6 +52,10 @@ export default class Signin extends React.Component{
       this.props.history.push('/home')   
     })
     .catch(err => {   
+      this.setState({
+        isLoadingSignin : false
+      });
+
       if(err.response && err.response.status === 422){
          window.$toastr('error',err.response.data.error);
       }else if(err.response && err.response.status === 500){
@@ -59,10 +63,6 @@ export default class Signin extends React.Component{
       }else{
          window.$toastr('error','Terjadi Kesalahan');
       }
-
-      this.setState({
-        isLoadingSignin : false
-      });
     })
   }
 
@@ -72,10 +72,13 @@ export default class Signin extends React.Component{
     }
 
     let ToastContainer = window.$ToastContainer;
-    
+      
+    let loginBoxStyle = {
+      margin : "auto"
+    }
+
 		return (
-			<div className="login-box" 
-        style={{margin:"auto"}}>
+			<div className="login-box" style={ loginBoxStyle }>
         <ToastContainer/>
 
         <div className="login-logo">
@@ -89,16 +92,20 @@ export default class Signin extends React.Component{
               Sign in to start your session
             </p>
 
-            <form onSubmit={this.form.handleSubmit}>
+            <form onSubmit={ this.form.handleSubmit }>
 
               <div className="input-group mb-3">
 
                 <input type="number" 
-                  className={this.state.errors.number ? 'is-invalid form-control' : 'form-control'} 
+                  className={
+                      this.state.errors.number 
+                      ? 'is-invalid form-control' 
+                      : 'form-control'
+                  } 
                   placeholder="Number"
                   name="number"
-                  onChange={this.form.handleChangeEvent}
-                  value={this.state.fields.number}/>
+                  onChange={ this.form.handleChangeEvent }
+                  value={ this.state.fields.number }/>
 
                 <div className="input-group-append">
                   <div className="input-group-text">
@@ -114,7 +121,7 @@ export default class Signin extends React.Component{
                   </div>
                   : 
                   <div className="invalid-feedback">
-                    {this.state.errors.number}
+                    { this.state.errors.number }
                   </div>
                 }
               </div>
@@ -122,11 +129,15 @@ export default class Signin extends React.Component{
               <div className="input-group mb-3">
 
                 <input type="password" 
-                  className={this.state.errors.password ? 'is-invalid form-control' : 'form-control'} 
+                  className={
+                    this.state.errors.password 
+                    ? 'is-invalid form-control' 
+                    : 'form-control'
+                  } 
                   placeholder="Password"
                   name="password"
-                  onChange={this.form.handleChangeEvent}
-                  value={this.state.fields.password}/>
+                  onChange={ this.form.handleChangeEvent }
+                  value={ this.state.fields.password }/>
 
                 <div className="input-group-append">
                   <div className="input-group-text">
@@ -142,21 +153,21 @@ export default class Signin extends React.Component{
                   </div>
                   : 
                   <div className="invalid-feedback">
-                    {this.state.errors.password}
+                    { this.state.errors.password }
                   </div>
                 }
               </div>
 
               <div className="row">               
                 <div className="col-4">
-                 {this.state.isLoadingSignin && 
+                 { this.state.isLoadingSignin && 
                   <button className="btn btn-primary btn-block">
                     . . .
                   </button>
                  }
 
-                 {!this.state.isLoadingSignin &&
-                  <button type="submit" className="btn btn-primary btn-block">
+                 { !this.state.isLoadingSignin &&
+                  <button className="btn btn-primary btn-block"  type="submit">
                     Sign In
                   </button>
                  }

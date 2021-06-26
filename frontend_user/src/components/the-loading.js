@@ -4,10 +4,12 @@ import LoadingOverlay from "react-loading-overlay";
 export default function(){
 	return (
 		<LoadingOverlay
-			active={true}
 			text="Loading your content . . ."
+			active={ true }
 			spinner>
-			<div style={{height : '100vh'}}></div>
+			<div style={ {
+				height : '100vh'
+			} }></div>
 		</LoadingOverlay>	
 	)
 }

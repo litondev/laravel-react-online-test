@@ -10,7 +10,7 @@ export default class Test extends React.Component{
 
 	render(){
 		return (
-			<DefaultLayout {...this.props}>
+			<DefaultLayout { ...this.props }>
 				Test
 			</DefaultLayout>
 		)

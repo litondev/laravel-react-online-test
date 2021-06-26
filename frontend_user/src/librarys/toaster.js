@@ -3,8 +3,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 window.$toast = toast;
 window.$ToastContainer = ToastContainer;
-
-window.$toastr = function(action,args){
+window.$toastr = (action,args) => {
  	let options = {
 		position: "top-right",
 		autoClose: 5000,
@@ -14,12 +13,6 @@ window.$toastr = function(action,args){
 		draggable: true,
 		progress: undefined,
 	};
-	
-	if(action === 'error'){
-		window.$toast.error(args,options);
-	}else if(action === 'success'){
-		window.$toast.success(args,options);
-	}else{
-		window.$toast(args,options);
-	}
+		
+	(action === 'error' ? window.$toast.error(args,options) : window.$toast.success(args,options))
 }

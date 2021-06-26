@@ -6,15 +6,13 @@ import "./librarys/axios.js";
 import "./librarys/toaster.js";
 import "./librarys/react-form-input-validation.js";
 
-import {Provider} from "react-redux";
+import { Provider } from "react-redux";
 import stores from "./stores/index.js";
-// s
 
 ReactDOM.render(
   <React.StrictMode>
-  	<Provider 
-		store={stores}>
-    	<App />
+  	<Provider store={ stores }>
+     <App/>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

@@ -22,16 +22,16 @@ class JwtRefreshMiddleware
             $messages = ["status" => "Failed"];
 
             if($e instanceof \Tymon\JWTAuth\Exceptions\TokenBlacklistedException){            
-                $messages['message'] = 'Token is blacklisted';
+                $messages['message'] = trans('auth.token-backlist');
             }else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) {                
-                $messages["message"] = 'Token is expired';
+                $messages['message'] = trans('auth.token-expired');
             }else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {        
-                $messages['message'] = 'Token is invalid';        
+                $messages['message'] = trans('auth.token-invalid');        
             }else{            
-                $messages['message'] = 'Authorization token not found';
+                $messages['message'] = trans('auth.token-not-found');
             }
 
-            if($messages["message"] != "Token is expired"){
+            if($messages["message"] != trans('auth.token-expired')){
                 return response()->json($messages);
             }
         }

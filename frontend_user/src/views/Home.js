@@ -1,5 +1,6 @@
 import DefaultLayout from "../layouts/default.js";
-import HomeSekleton from "../components/sekleton/HomeSekleton.js";
+import HomeSekleton from "../components/home/HomeSekleton.js";
+import HomeResult from "../components/home/HomeResult.js";
 import React from "react";
 
 export default class Home extends React.Component{  
@@ -9,7 +10,8 @@ export default class Home extends React.Component{
     	document.title = "Home";
 
     	this.state = {
-    		isLoadingUserTest : true
+    		isLoadingUserTest : true,
+    		resultUserTest : []
     	}
 	}
 
@@ -17,10 +19,9 @@ export default class Home extends React.Component{
 		window.$axios.get("/home")
 		.then(res => {
 			this.setState({
-				isLoadingUserTest : false
-			})
-
-			console.log(res.data);
+				isLoadingUserTest : false,
+				resultUserTest : res.data
+			})		
 		})
 		.catch(err => {
 			if(err.response && err.response.status === 500){
@@ -32,33 +33,20 @@ export default class Home extends React.Component{
 	}
 
 	render(){
-		let homeContainerStyle = {
-			border: "1px solid lightgray",
-			minHeight: "400px",
-		}
-
 		return (
-			<DefaultLayout {...this.props}>
-				<div className="container mt-4 p-4" style={homeContainerStyle}>					
-					{this.state.isLoadingUserTest && <HomeSekleton/>}
+			<DefaultLayout { ...this.props }>
+				<div className="container mt-4 p-4">					
 
-					{!this.state.isLoadingUserTest && 
+					{ this.state.isLoadingUserTest && 
 						<>
-							<div className="text-center">
-								<div className="mt-2 mb-2 d-inline-block">
-									Jadwal Ujian Anda Hari Ini
-								</div>
-							</div>
-							
-							<div className="text-center">
-								<img src="images/not-found.png" 
-									style={{maxHeight: 300,objectFit: "cover"}}
-									className="d-none d-lg-inline-block mt-3 mb-3"/>
-								<img src="images/not-found.png"
-									className="d-block d-lg-none mt-3 mb-3 img-fluid"/>
-								<br/>
-								Jadwal Ujian Anda Hari Ini Tidak Ditemukan
-							</div>
+							<HomeSekleton />
+						</>
+					}
+
+					{ !this.state.isLoadingUserTest && 
+						<>
+							<HomeResult 
+								result={ this.state.resultUserTest } />
 						</>
 					}
 				</div>

@@ -12,43 +12,31 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(
 	res => res,
 	err => {
-		if(err.response && err.response.status === 401){
-			if(err.response.data.message = "Token is expired"){
-				console.log("Token is expired");
+		if(!err.response){
+			throw err;
+		}
 
-				return axios.post("/refresh")
-				.then(res => {
-					store.dispatch({
-						type : "SET_TOKEN",
-						token  : res.data.access_token
-					})
+		if(err.response.status !== 401){
+			throw err;
+		}
+	
+		if(!["Token is expired","Token telah kadaluwarsa"].includes(err.response.data.message)){
+	 		store.dispatch({
+	 			type : 'REMOVE_TOKEN'
+	 		});
 
-					console.log("Success Refresh Token");
+	 		throw err;
+		}
 
-					console.log("Resend Original Request");
-
-					return window.$axios(err.config)
-				}).catch(error => {
-					// sss
-					if(error.response && error.response.status !== 401){
-						throw error
-					}else{
-						console.log("Failed Refresh Token");
-						store.dispatch({
-							type : "REMOVE_TOKEN"
-						})
-					}
-				});
-			}else{
-				console.log("Token is invalid");
-
-				store.dispatch({
-					type : 'REMOVE_TOKEN'
-				});
-			}
-		}				
-
-		throw err
+		return axios.post("/refresh")
+		.then(res => {	
+			store.dispatch({
+				type : "SET_TOKEN",
+				token  : res.data.access_token
+			});
+		
+			return window.$axios(err.config)
+		});		
 	}
 )
 

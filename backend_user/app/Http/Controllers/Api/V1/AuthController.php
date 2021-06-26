@@ -14,18 +14,18 @@ class AuthController extends Controller
 {
     public function signup(SignupRequest $request){
         try{
-    	    throw_if(!User::create($request->validated()),new \Exception("Something Wrong"));
+    	    throw_if(!User::create($request->validated()),new \Exception(trans("global.something-wrong")));
             
             return response()->json([
                 "status" => "Success",
-                "message" => "Success signup"
+                "message" => trans("auth.success-signup")
             ],201);
         }catch(\Exception $e){
             \Log::channel("coex")->info($e->getMessage());
 
             return response()->json([
                 "status" => "Failed",
-                "message" => "Something wrong"
+                "message" => trans("global.something-wrong")
             ],500);
         }
     }
@@ -33,18 +33,15 @@ class AuthController extends Controller
     public function signin(SigninRequest $request)
     {
         try{            
-            throw_if(
-                !$token = auth()->attempt($request->validated()),
-                new \Exception("Nomor atau Password salah")
-            );
-
+            throw_if(!$token = auth()->attempt($request->validated()),new \Exception(trans("auth.failed-signin")));
+            
             return $this->respondWithToken($token);
         }catch(\Exception $e){
             \Log::channel("coex")->info($e->getMessage());
 
             return response()->json([
                 "status" => "Failed",
-                "error" => "Nomor atau Password salah"
+                "error" => trans("auth.failed-signin")
             ],422);
         }
     }
@@ -60,7 +57,7 @@ class AuthController extends Controller
 
         return response()->json([
             "status" => "Success",
-            'message' => 'Successfully logged out'
+            'message' => trans("auth.success-logout")
         ]);
     }
 
@@ -74,13 +71,13 @@ class AuthController extends Controller
             $messages = ["status" => "Failed"];
 
             if($e instanceof \Tymon\JWTAuth\Exceptions\TokenBlacklistedException){            
-                $messages['message'] = 'Token is blacklisted';
+                $messages['message'] = trans('auth.token-blacklist');
             }else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) {                
-                $messages["message"] = 'Token is expired';
+                $messages["message"] = trans('auth.token-refresh-invalid');
             }else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {        
-                $messages['message'] = 'Token is invalid';                        
+                $messages['message'] = trans('auth.token-invalid');                       
             }else{            
-                $messages['message'] = 'Authorization token not found';            
+                $messages['message'] = trans('auth.token-not-found');       
             }
 
             return response()->json($messages,401);            
@@ -93,7 +90,8 @@ class AuthController extends Controller
             "status" => "Success",
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => auth()->factory()->getTTL() * 60,
+            "message" => trans("auth.success-signin")
         ]);
     }
 }

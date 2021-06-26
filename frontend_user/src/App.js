@@ -1,27 +1,26 @@
 import React from 'react';
 import Routes from "./routers/index.js";
-import {BrowserRouter,Route,Switch} from "react-router-dom";
-import {connect} from "react-redux";
 import TheLoading from "./components/the-loading.js";
+import { BrowserRouter,Route,Switch } from "react-router-dom";
+import { connect } from "react-redux";
 
 class App extends React.Component{
   render(){  
     return (
         <BrowserRouter>   
-          <React.Suspense
-            fallback={<TheLoading/>}>    
+          <React.Suspense fallback={ <TheLoading/> }>    
             <Switch>
             {
               Routes.map((route,indexRoute) => {
                 return <Route
-                  path={route.path}
-                  key={indexRoute}
+                  path={ route.path }
+                  key={ indexRoute }
                   render={
                     (props) => 
                     <route.component
-                      {...props} 
-                      {...this.props}/>
-                  }/>
+                      { ...props } 
+                      { ...this.props } />
+                  } />
               })
             }           
             </Switch>

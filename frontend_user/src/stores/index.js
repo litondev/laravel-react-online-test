@@ -1,4 +1,4 @@
-import {createStore} from "redux";
+import { createStore } from "redux";
 
 let states = {
 	token : localStorage.getItem('user-token') || null,
