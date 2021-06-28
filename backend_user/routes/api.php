@@ -30,5 +30,12 @@ Route::group(["prefix" => "v1","namespace" => "Api\V1","middleware" => "api"],fu
 		Route::post("/logout","AuthController@logout")->name("logout");		
 		Route::get("/home","HomeController@index")->name("home");
 		Route::get("/me","AuthController@me")->name("me");
+
+		Route::apiResource("status","StatusController");
+
+		Route::group(["prefix" => "profil"],function(){
+			Route::post("/upload","ProfilController@upload")->name("profil.upload");
+			Route::post("/update","ProfilController@update")->name("profil.update");
+		});
 	});
 });

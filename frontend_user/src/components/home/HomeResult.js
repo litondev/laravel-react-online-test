@@ -1,6 +1,10 @@
 import React from "react";
 
 export default class HomeResult extends React.Component{  
+	onTureOrFalse(){
+		return this.props.result.length ? true : false
+	}
+
     render(){
     	return (
     		<>
@@ -10,7 +14,7 @@ export default class HomeResult extends React.Component{
 					</div>
 				</div>
 				
-				{ !this.props.result.length &&
+				{ !Boolean(this.props.result.length) &&
 					<>
 						<div className="text-center">
 							<img src="images/not-found.png" 
@@ -31,7 +35,7 @@ export default class HomeResult extends React.Component{
 					</>
 				}
 
-				{ this.props.result.length &&
+				{ Boolean(this.props.result.length) &&
 					<>
 						Ada Ujian Kawan
 					</>

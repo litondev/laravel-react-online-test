@@ -4,4 +4,4 @@ return [
 
 	"something-wrong" => "Something Wrong",
 
-]
+];

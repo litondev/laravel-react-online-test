@@ -15,4 +15,9 @@ class TestUser extends Model
     public function test(){
     	return $this->belongsTo(Test::class);
     }
+
+    public function scopeSelectStatusWithTest($query){
+    	return $query->select('id','test_id')
+    		->with('test:id,name,mapel,start_at,end_at');
+    }
 }

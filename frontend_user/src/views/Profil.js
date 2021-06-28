@@ -1,5 +1,6 @@
 import DefaultLayout from "../layouts/default.js";
 import ProfilSekleton from "../components/profil/ProfilSekleton.js";
+import ProfilResult from "../components/profil/ProfilResult.js";
 import React from "react";
 
 export default class Profil extends React.Component{
@@ -9,7 +10,8 @@ export default class Profil extends React.Component{
     	document.title = "Profil";
 
     	this.state = {
-    		isLoadingProfil : true
+    		isLoadingProfil : true,
+    		resultProfil : {}
     	}
 	}
 
@@ -17,7 +19,8 @@ export default class Profil extends React.Component{
 		window.$axios.get("/me")
 		.then(res => {
 			this.setState({
-				isLoadingProfil : false
+				isLoadingProfil : false,
+				resultProfil : res.data
 			});
 
 			console.log(res);
@@ -37,6 +40,13 @@ export default class Profil extends React.Component{
 					{ this.state.isLoadingProfil && 
 						<>
 							<ProfilSekleton />
+						</>
+					}
+
+					{ !this.state.isLoadingProfil &&
+						<>
+							<ProfilResult 
+								result={this.state.resultProfil} />
 						</>
 					}
 				</div>

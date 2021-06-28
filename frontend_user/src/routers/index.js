@@ -14,6 +14,10 @@ export default [
 		component : React.lazy(() => import('../views/Home'))
 	},
 	{
+		path : "/status/:id",
+		component : React.lazy(() => import('../views/StatusDetail'))
+	},
+	{
 		path : "/status",
 		component : React.lazy(() => import('../views/Status'))
 	},
