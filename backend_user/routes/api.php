@@ -18,7 +18,14 @@ use Illuminate\Support\Facades\Route;
 // 	return "hi api";
 // });
 
-Route::group(["prefix" => "v1","namespace" => "Api\V1","middleware" => "api"],function(){
+Route::group(["prefix" => "v1","namespace" => "Api\V1","middleware" => ["api","maintaince"]],function(){
+	Route::get("check",function(){
+		return response()->json([
+			"status" => "Success",
+			"message" => "Ok"
+		]);
+	});
+
 	Route::post("/signup","AuthController@signup")->name('signup');
 	Route::post("/signin","AuthController@signin")->name("signin");
 

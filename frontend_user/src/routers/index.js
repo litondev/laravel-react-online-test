@@ -26,6 +26,10 @@ export default [
 		component : React.lazy(() => import('../views/Profil'))
 	},
 	{
+		path : "/maintaince",
+		component : React.lazy(() => import('../views/Maintaince'))
+	},
+	{
 		path : '/',
 		component : React.lazy(() => import('../views/Signin'))
 	}

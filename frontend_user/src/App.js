@@ -5,7 +5,27 @@ import { BrowserRouter,Route,Switch } from "react-router-dom";
 import { connect } from "react-redux";
 
 class App extends React.Component{
-  render(){  
+  constructor(props){
+    super(props)
+
+    if(window.location.pathname != "/maintaince" && localStorage.getItem("maintaince")){
+      window.location = "/maintaince";              
+    }
+
+    if(window.location.pathname == "/maintaince" && !localStorage.getItem("maintaince")){
+      window.location = "/";
+    }
+  }
+
+  render(){ 
+    if(window.location.pathname != "/maintaince" && localStorage.getItem("maintaince")){
+      return <TheLoading/> 
+    } 
+
+    if(window.location.pathname == "/maintaince" && !localStorage.getItem("maintaince")){
+      return <TheLoading/>
+    }
+
     return (
         <BrowserRouter>   
           <React.Suspense fallback={ <TheLoading/> }>    

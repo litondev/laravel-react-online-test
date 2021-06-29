@@ -11,9 +11,15 @@ axios.interceptors.request.use(config => {
 
 axios.interceptors.response.use(
 	res => res,
-	err => {
+	err => {		
 		if(!err.response){
 			throw err;
+		}
+
+		if(err.response.status === 503 && !localStorage.getItem("maintaince")){		
+			localStorage.setItem('maintaince',true);
+			window.location = "/maintaince";			
+			return false;
 		}
 
 		if(err.response.status !== 401){
