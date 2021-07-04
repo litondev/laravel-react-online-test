@@ -1,0 +1,15 @@
+.btn-my-test{
+	color: #fff;
+	background-color: #64cbef;
+	border-color: #64cbef;
+	box-shadow: none;
+	transition: box-shadow 1s;	
+	border-radius:25px;
+	padding-left: 25px;
+	padding-right: 25px;
+}
+
+.btn-my-test:hover{
+	box-shadow: 0px 3px 10px -5px gray;
+	color: #fff;
+};

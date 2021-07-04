@@ -8,6 +8,7 @@ use App\Http\Requests\{
 	ProfilUploadRequest,
 	ProfilUpdateRequest
 };
+use App\Helpers\FormatResponse;
 use DB;
 use App\Uploads\UploadProfilPhoto;
 
@@ -27,19 +28,11 @@ class ProfilController extends Controller
 
     		DB::commit();
 
-    		return response()->json([
-				"status" => "Success",
-				"message" => trans("profil.success-upload")
-    		]);
+            return FormatResponse::success(__("profil.success-upload"));    
     	}catch(\Exception $e){
     		DB::rollback();
 
-    		\Log::channel("coex")->info($e->getMessage());
-
-    		return response()->json([			   
-    			"status" => "Failed",
-    			"message" => trans("global.something-wrong")
-    		],500);
+    	   return FormatResponse::failed($e);
     	}    
     }
 
@@ -47,25 +40,24 @@ class ProfilController extends Controller
     	try{
             DB::beginTransaction();
 
-            throw_if(!\Hash::check($request->password_confirm,auth()->user()->password),new \Exception(trans("profil.password-confirm-wrong")));
+            throw_if(!\Hash::check(
+                $request->password_confirm,auth()->user()->password),
+                new \Exception(trans("profil.password-confirm-wrong"),422)
+            );
 
-            auth()->user()->update($request->password ? $request->except("password_confirm") : $request->except("password","password_confirm"));            
+            auth()->user()->update(
+                $request->password 
+                    ? $request->except("password_confirm") 
+                    : $request->except("password","password_confirm")
+                );            
 
             DB::commit();
             
-            return response()->json([
-                "status" => "Success",
-                "message" => trans("profil.success-update")
-            ]);
+            return FormatResponse::success(__("profil.success-update"));            
         }catch(\Exception $e){
             DB::rollback();
 
-            \Log::channel("coex")->info($e->getMessage());
-
-            return response()->json([
-                 "status" => "Failed",
-                 "message" => $e->getMessage() !== trans("profil.password-confirm-wrong") ? trans("global.something-wrong") : trans("profil.password-confirm-wrong")
-            ],500);
+            return FormatResponse::failed($e);
         }
     }
 }

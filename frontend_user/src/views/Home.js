@@ -36,18 +36,17 @@ export default class Home extends React.Component{
 		return (
 			<DefaultLayout { ...this.props }>
 				<div className="container mt-4 p-4">					
-
 					{ this.state.isLoadingUserTest && 
-						<>
-							<HomeSekleton />
-						</>
+						<div className="animate__animated animate__fadeIn">
+							<HomeSekleton />						
+						</div>
 					}
 
-					{ !this.state.isLoadingUserTest && 
-						<>
+					{ !this.state.isLoadingUserTest && 						
+						<div className="animate__animated animate__fadeIn">
 							<HomeResult 
-								result={ this.state.resultUserTest } />
-						</>
+								result={ this.state.resultUserTest } />						
+						</div>
 					}
 				</div>
 			</DefaultLayout>

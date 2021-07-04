@@ -8,11 +8,13 @@ export default class ProfilResult extends React.Component{
     		<>
     			<div className="row m-0">
     				<div className="col-lg-3 col-12 text-center">    					
-    					<ProfilUpload { ...this.props } />
+    					<ProfilUpload 
+                            { ...this.props } />
     				</div>
 
     				<div className="col-lg-9 col-12">
-                        <ProfilUpdate { ...this.props } />  
+                        <ProfilUpdate 
+                            { ...this.props } />  
                     </div>
     			</div>
     		</>

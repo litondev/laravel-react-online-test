@@ -38,16 +38,16 @@ export default class Profil extends React.Component{
 			<DefaultLayout { ...this.props }>
 				<div className="container mt-4 p-4">
 					{ this.state.isLoadingProfil && 
-						<>
+						<div className="animate__animated animate__fadeIn">
 							<ProfilSekleton />
-						</>
+						</div>
 					}
 
 					{ !this.state.isLoadingProfil &&
-						<>
+						<div className="animate__animated animate__fadeIn">
 							<ProfilResult 
 								result={this.state.resultProfil} />
-						</>
+						</div>
 					}
 				</div>
 			</DefaultLayout>

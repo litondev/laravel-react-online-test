@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Helpers\FormatResponse;
 use App\Http\Requests\{
     SigninRequest,
     SignupRequest
@@ -14,35 +15,28 @@ class AuthController extends Controller
 {
     public function signup(SignupRequest $request){
         try{
-    	    throw_if(!User::create($request->validated()),new \Exception(trans("global.something-wrong")));
+    	    throw_if(
+                !User::create($request->validated()),
+                new \Exception(__("global.something-wrong"))
+            );
             
-            return response()->json([
-                "status" => "Success",
-                "message" => trans("auth.success-signup")
-            ],201);
+            return FormatResponse::success(__("auth.success-signup"));        
         }catch(\Exception $e){
-            \Log::channel("coex")->info($e->getMessage());
-
-            return response()->json([
-                "status" => "Failed",
-                "message" => trans("global.something-wrong")
-            ],500);
+            return FormatResponse::failed($e);         
         }
     }
 
     public function signin(SigninRequest $request)
     {
         try{            
-            throw_if(!$token = auth()->attempt($request->validated()),new \Exception(trans("auth.failed-signin")));
+            throw_if(
+                !$token = auth()->attempt($request->validated()),
+                new \Exception(__("auth.failed-signin"),422)
+            );
             
             return $this->respondWithToken($token);
         }catch(\Exception $e){
-            \Log::channel("coex")->info($e->getMessage());
-
-            return response()->json([
-                "status" => "Failed",
-                "error" => trans("auth.failed-signin")
-            ],422);
+            return FormatResponse::failed($e);   
         }
     }
 
@@ -55,10 +49,7 @@ class AuthController extends Controller
     {
         auth()->logout();
 
-        return response()->json([
-            "status" => "Success",
-            'message' => trans("auth.success-logout")
-        ]);
+        return FormatResponse::success(__("auth.success-logout"));    
     }
 
     public function refresh()
@@ -71,13 +62,13 @@ class AuthController extends Controller
             $messages = ["status" => "Failed"];
 
             if($e instanceof \Tymon\JWTAuth\Exceptions\TokenBlacklistedException){            
-                $messages['message'] = trans('auth.token-blacklist');
+                $messages['message'] = __('auth.token-blacklist');
             }else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) {                
-                $messages["message"] = trans('auth.token-refresh-invalid');
+                $messages["message"] = __('auth.token-refresh-invalid');
             }else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {        
-                $messages['message'] = trans('auth.token-invalid');                       
+                $messages['message'] = __('auth.token-invalid');                       
             }else{            
-                $messages['message'] = trans('auth.token-not-found');       
+                $messages['message'] = __('auth.token-not-found');       
             }
 
             return response()->json($messages,401);            
@@ -88,10 +79,10 @@ class AuthController extends Controller
     {
         return response()->json([
             "status" => "Success",
+            "message" => __("auth.success-signin"),
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
-            "message" => trans("auth.success-signin")
         ]);
     }
 }

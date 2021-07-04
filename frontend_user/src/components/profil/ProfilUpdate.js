@@ -170,13 +170,13 @@ export default class ProfilUpdate extends React.Component{
             <div className="row">               
               <div className="col-4">
                { this.state.isLoadingUpdate && 
-                <button className="btn btn-primary btn-block">
-                  . . .
+                <button className="btn btn-my-test btn-block">
+                  <i class="fa fa-circle-notch fa-spin"></i>
                 </button>
                }
 
                { !this.state.isLoadingUpdate &&
-                <button className="btn btn-primary btn-block"  type="submit">
+                <button className="btn btn-my-test btn-block"  type="submit">
                   Update
                 </button>
                }

@@ -11,76 +11,23 @@ export default function profilSekleton(){
 				</div>
 
 				<div className="col-lg-9 col-12">
-					<Skeleton height={ 20 } width={ 250 } 
-						className="d-none d-lg-block mt-2 mb-2" />
+					{[1,2,3,4].map(() => {
+						return <>
+						<Skeleton height={ 20 } width={ 250 } 
+							className="d-none d-lg-block mt-2 mb-2" />
 
-					<Skeleton height={ 35 } width={ 600 } 
-						className="d-none d-lg-block mt-2 mb-2" />
+						<Skeleton height={ 35 } width={ "100%" } 
+							className="d-none d-lg-block mt-2 mb-2" />
 
-					<Skeleton height={ 20 } width={ 150 } 
-						className="d-block d-lg-none mt-2 mb-2" />
+						<Skeleton height={ 20 } width={ 150 } 
+							className="d-block d-lg-none mt-2 mb-2" />
 
-					<Skeleton height={ 35 } width={ 300 } 
-						className="d-block d-lg-none mt-2 mb-2" />
+						<Skeleton height={ 35 } width={ "100%" } 
+							className="d-block d-lg-none mt-2 mb-2" />
 
-					<br/>
-
-					<Skeleton height={ 20 } width={ 250 } 
-						className="d-none d-lg-block mt-2 mb-2" />
-
-					<Skeleton height={ 35 } width={ 600 } 
-						className="d-none d-lg-block mt-2 mb-2" />
-
-					<Skeleton height={ 20 } width={ 150 } 
-						className="d-block d-lg-none mt-2 mb-2" />
-
-					<Skeleton height={ 35 } width={ 300 } 
-						className="d-block d-lg-none mt-2 mb-2" />
-
-					<br/>
-
-					<Skeleton height={ 20 } width={ 250 } 
-						className="d-none d-lg-block mt-2 mb-2" />
-
-					<Skeleton height={ 35 } width={ 600 } 
-						className="d-none d-lg-block mt-2 mb-2" />
-
-					<Skeleton height={ 20 } width={ 150 } 
-						className="d-block d-lg-none mt-2 mb-2" />
-
-					<Skeleton height={ 35 } width={ 300 } 
-						className="d-block d-lg-none mt-2 mb-2" />
-
-					<br/>
-
-					<Skeleton height={ 20 } width={ 250 } 
-						className="d-none d-lg-block mt-2 mb-2" />
-
-					<Skeleton height={ 35 } width={ 600 } 
-						className="d-none d-lg-block mt-2 mb-2" />
-
-					<Skeleton height={ 20 } width={ 150 } 
-						className="d-block d-lg-none mt-2 mb-2" />
-
-					<Skeleton height={ 35 } width={ 300 } 
-						className="d-block d-lg-none mt-2 mb-2" />
-
-					<br/>
-
-					<Skeleton height={ 20 } width={ 250 } 
-						className="d-none d-lg-block mt-2 mb-2" />
-
-					<Skeleton height={ 35 } width={ 600 } 
-						className="d-none d-lg-block mt-2 mb-2" />
-
-					<Skeleton height={ 20 } width={ 150 } 
-						className="d-block d-lg-none mt-2 mb-2" />
-
-					<Skeleton height={ 35 } width={ 300 } 
-						className="d-block d-lg-none mt-2 mb-2" />
-
-					<br/>
-
+							<br/>
+						</>
+					})}			
 				</div>
 			</div>
 		</>

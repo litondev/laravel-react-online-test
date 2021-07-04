@@ -64,9 +64,9 @@ export default class ProfilUpload extends React.Component{
 				<input type="file" className="d-none" name="photo"
 					onChange={ (event) => this.onUpload(event) }/>
 
-				<div className="btn btn-primary mt-3 d-inline-block" 
+				<div className="btn btn-my-test mt-3 d-inline-block" 
 					onClick={() => window.$("input[name=photo]").trigger('click')}>
-					Upload File { this.state.isLoadingUpload && ' . . . ' }
+					Upload File { this.state.isLoadingUpload &&  <> <i class="fa fa-circle-notch fa-spin"></i> </> }
 				</div>
 			</form>	    		
 		)

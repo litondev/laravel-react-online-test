@@ -13,7 +13,8 @@ export default class Signin extends React.Component{
         password : ''
       },
       errors : {},
-      isLoadingSignin : false
+      isLoadingSignin : false,
+      isInvalid : true
     }
 
     this.form = new window.$ReactFormInputValidation(this);
@@ -27,11 +28,12 @@ export default class Signin extends React.Component{
   }
 
   componentDidMount(){  
-    window.$("body").addClass("hold-transition login-page");
-  }
+    window.$("body").attr({"style" : "none"});   
+    window.$("body").removeClass("sidebar-collapse");
+    window.$("body").addClass("hold-transition login-page");             
+  } 
 
   componentWillUnmount(){
-    window.$("body").removeClass("hold-transition login-page");
   }
   
   onSignin(fields){    
@@ -73,12 +75,8 @@ export default class Signin extends React.Component{
 
     let ToastContainer = window.$ToastContainer;
       
-    let loginBoxStyle = {
-      margin : "auto"
-    }
-
 		return (
-			<div className="login-box" style={ loginBoxStyle }>
+			<div className="login-box animate__animated animate__fadeIn">
         <ToastContainer/>
 
         <div className="login-logo">
@@ -159,15 +157,15 @@ export default class Signin extends React.Component{
               </div>
 
               <div className="row">               
-                <div className="col-4">
+                <div className="col-12 text-right">
                  { this.state.isLoadingSignin && 
-                  <button className="btn btn-primary btn-block">
-                    . . .
+                  <button className="btn btn-my-test">
+                    <i className="fa fa-circle-notch fa-spin"></i>
                   </button>
                  }
 
                  { !this.state.isLoadingSignin &&
-                  <button className="btn btn-primary btn-block"  type="submit">
+                  <button className="btn btn-my-test"  type="submit">
                     Sign In
                   </button>
                  }
